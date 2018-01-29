@@ -5,9 +5,9 @@ import java.util.Map;
 
 public final class Constants {
 
-	public static Map<String, String> QUERY_MAP = getQueryMap();
+	public static Map<String, String> QUERY_MAP = initQueryMap();
 
-	private static Map<String, String> getQueryMap() {
+	private static Map<String, String> initQueryMap() {
 		
 		if (QUERY_MAP != null) {
 			return QUERY_MAP;
@@ -22,7 +22,7 @@ public final class Constants {
 	}
 	
 	
-	public static final String GET_ALL_PATIENTS_QUERY = "Select * from patient";
-	public static final String GET_PATIENT_BY_ID = "Select * from patient where id = ?";
+	private static final String GET_ALL_PATIENTS_QUERY = "Select * from patient";
+	private static final String GET_PATIENT_BY_ID = "Select * from patient where id = ?";
 	
 }
