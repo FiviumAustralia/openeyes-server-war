@@ -1,0 +1,35 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	
+	<!-- Filters -->
+	
+	<filter>
+		<filter-name>CORS_Filter</filter-name>
+		<display-name>CORS_Filter</display-name>
+		<description></description>
+		<filter-class>fivium.openeyes.servlets.CORS_Filter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CORS_Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	
+	<servlet>
+		<servlet-name>QueryServlet</servlet-name>
+		<display-name>QueryServlet</display-name>
+		<description></description>
+		<servlet-class>fivium.openeyes.servlets.QueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QueryServlet</servlet-name>
+		<url-pattern>/QueryServlet</url-pattern>
+	</servlet-mapping>
+	
+
+
+</web-app>
