@@ -26,7 +26,7 @@ public class QueryServlet extends HttpServlet {
 	
 	private static final List<String> VALID_CONTENT_TYPES = Arrays.asList(
 			"application/json", 
-			"application/json; charset=utf-8"
+			"application/json;charset=UTF-8"
 			);  
 	
 	private static Log logger = LogFactory.getLog(QueryServlet.class);
