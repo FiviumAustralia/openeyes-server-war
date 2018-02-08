@@ -50,7 +50,6 @@ public class QueryServlet extends HttpServlet {
 				return;
 			}
 			
-			System.out.println(QUERY_MAP.keySet());
 			String queryAction = (String) jsonRequestObject.get("queryAction");
 			Map<String, List<String>> query = new HashMap<String, List<String>>();
 			query = new Gson().fromJson(queryAction, Map.class);
@@ -87,6 +86,7 @@ public class QueryServlet extends HttpServlet {
 				sb.append(x);
 		}
 		String queryToExecute = QUERY_MAP.get(sb.toString());
+		System.out.println(queryToExecute.replace("?", s));
 	}
 
 

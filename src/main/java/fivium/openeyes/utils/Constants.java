@@ -17,12 +17,13 @@ public final class Constants {
 
 		QUERY_MAP = new HashMap<String, String>();
 		QUERY_MAP.put("Patients", GET_ALL_PATIENTS_QUERY);
+		QUERY_MAP.put("Injections", GET_ALL_INJECTIONS_QUERY);
 //		QUERY_MAP.put("GetAllInjectionsMedications", GET_ALL_INJECTIONS_MEDICATION_QUERY);
 //		QUERY_MAP.put("GetAllInjectionsMedicinesEyes", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
-//		QUERY_MAP.put("GetTotalInjections", GET_ALL_INJECTIONS_QUERY);
 //		QUERY_MAP.put("GetTotalMedications", GET_ALL_MEDICATION);
 //		QUERY_MAP.put("GetTotalEyes", GET_ALL_EYES);
-//		QUERY_MAP.put("GetAllPatientsInjections", GET_ALL_PATIENT_INJECTIONS);
+		QUERY_MAP.put("PatientsInjections", GET_ALL_PATIENT_INJECTIONS);
+		QUERY_MAP.put("InjectionsPatients", GET_ALL_PATIENT_INJECTIONS);
 		return QUERY_MAP;
 	}
 
@@ -58,14 +59,9 @@ public final class Constants {
 	
 	private static final String GET_ALL_PATIENTS_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_2_full_patients";
 
-	private static final String GET_ALL_INJECTIONS_QUERY = "SELECT "
-			+ "ex_inj_injection_number \"INJECTION NUMBER\", ex_inj_batch_number \"INJECTION BATCH\", "
-			+ "ex_inj_batch_expiry_date  \"INJECTION BATCH EXPIRY\" " + "FROM _r_u23s4545r200b365x2_1_full_injections";
+	private static final String GET_ALL_INJECTIONS_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections";
 
-	private static final String GET_ALL_PATIENT_INJECTIONS = "SELECT "
-			+ "pat_hos_num Hospital_Number , pat_nhs_num NHS_Number, pat_dob ,pat_gender Gender, cont_nick_name Preferred_Name, cont_title Title, cont_first_name First_Name, "
-			+ "cont_last_name Last_Name, cont_maiden_name Maiden_Name,pat_is_deceased Patient_Deceased, pat_date_of_death Deceased_Date, ex_inj_injection_number, ex_inj_batch_number, "
-			+ "ex_inj_batch_expiry_date  FROM _r_u23s4545r200b365x2_2_full_patients A LEFT OUTER JOIN _r_u23s4545r200b365x2_1_full_injections B ON A.pat_id = B.ep_patient_id;";
+	private static final String GET_ALL_PATIENT_INJECTIONS = "SELECT ? FROM _r_u23s4545r200b365x2_2_full_patients A LEFT OUTER JOIN _r_u23s4545r200b365x2_1_full_injections B ON A.pat_id = B.ep_patient_id;";
 	
 	private static final String GET_ALL_INJECTIONS_MEDICATION_QUERY = "SELECT "
 			+ "ex_inj_injection_number, ex_inj_batch_number, ex_inj_batch_expiry_date, med_inj_name FROM _r_u23s4545r200b365x2_1_full_injections A "
