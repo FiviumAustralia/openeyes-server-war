@@ -1,11 +1,15 @@
 package fivium.openeyes.servlets;
 
 import static fivium.openeyes.utils.Constants.QUERY_MAP;
+import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +50,13 @@ public class QueryServlet extends HttpServlet {
 				return;
 			}
 			
+			System.out.println(QUERY_MAP.keySet());
 			String queryAction = (String) jsonRequestObject.get("queryAction");
+			Map<String, List<String>> query = new HashMap<String, List<String>>();
+			query = new Gson().fromJson(queryAction, Map.class);
+			String s = createSQLQuery(query);
+			createFormalQuery(query, s);
+			
 			List<Object> queryList = (List<Object>) jsonRequestObject.get("queryParams");			
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
 			String queryType = (String) jsonRequestObject.get("queryType");
@@ -69,6 +79,32 @@ public class QueryServlet extends HttpServlet {
 		
 	}
 	
+
+	private void createFormalQuery(Map<String, List<String>> query, String s) {
+		Set<String> aSet = query.keySet();
+		StringBuilder sb = new StringBuilder();
+		for(String x : aSet) {
+				sb.append(x);
+		}
+		String queryToExecute = QUERY_MAP.get(sb.toString());
+	}
+
+
+	private String createSQLQuery(Map<String, List<String>> query) {
+		StringBuilder sb = new StringBuilder();
+		Set<String> aSet = query.keySet();
+		for(String s : aSet) {
+			ArrayList<String> aList = (ArrayList<String>) query.get(s);
+			for(String x : aList) {
+				sb.append(DATABASE_TABLE_MAPPING.get(x));
+				sb.append(", ");
+			}
+		}
+		
+		return sb.toString().substring(0, sb.toString().length()-2);
+	}
+
+
 	private boolean isValidRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		// if request isn't a POST the return a 400 error
@@ -91,10 +127,10 @@ public class QueryServlet extends HttpServlet {
 		} 
 		
 		// if given queryAction doesn't exist then return 400 error
-		if (!QUERY_MAP.containsKey(jsonRequestObject.get("queryAction"))) {
-			Utils.set400Reponse(response, "Invalid Request, queryAction '" + jsonRequestObject.get("queryAction") + "' is not implemented.");
-			return false;
-		}
+//		if (!QUERY_MAP.containsKey(jsonRequestObject.get("queryAction"))) {
+//			Utils.set400Reponse(response, "Invalid Request, queryAction '" + jsonRequestObject.get("queryAction") + "' is not implemented.");
+//			return false;
+//		}
 		
 		return true;
 		
