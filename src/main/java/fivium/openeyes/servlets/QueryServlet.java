@@ -53,8 +53,8 @@ public class QueryServlet extends HttpServlet {
 			String queryAction = (String) jsonRequestObject.get("queryAction");
 			Map<String, List<String>> query = new HashMap<String, List<String>>();
 			query = new Gson().fromJson(queryAction, Map.class);
-			String s = createSQLQuery(query);
-			createFormalQuery(query, s);
+			String selectedColumns = findSelectedColumns(query);
+			String queryToExecute = createSQLQuery(query, selectedColumns);
 			
 			List<Object> queryList = (List<Object>) jsonRequestObject.get("queryParams");			
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
@@ -63,7 +63,7 @@ public class QueryServlet extends HttpServlet {
 			Object queryResult = null;
 			
 			if (queryType.equals("Fetch")) {
-				queryResult = DAO.executeFetchStatement(QUERY_MAP.get(queryAction), queryParams);
+				queryResult = DAO.executeFetchStatement(queryToExecute, queryParams);
 			} else {
 				queryResult = DAO.executeMutateStatement(QUERY_MAP.get(queryAction), queryParams);
 			}	
@@ -79,24 +79,24 @@ public class QueryServlet extends HttpServlet {
 	}
 	
 
-	private void createFormalQuery(Map<String, List<String>> query, String s) {
+	private String createSQLQuery(Map<String, List<String>> query, String selectedColumns) {
 		Set<String> aSet = query.keySet();
 		StringBuilder sb = new StringBuilder();
-		for(String x : aSet) {
-				sb.append(x);
+		for(String key : aSet) {
+				sb.append(key);
 		}
 		String queryToExecute = QUERY_MAP.get(sb.toString());
-		System.out.println(queryToExecute.replace("?", s));
+		return queryToExecute.replace("?", selectedColumns);
 	}
 
 
-	private String createSQLQuery(Map<String, List<String>> query) {
+	private String findSelectedColumns(Map<String, List<String>> query) {
 		StringBuilder sb = new StringBuilder();
 		Set<String> aSet = query.keySet();
-		for(String s : aSet) {
-			ArrayList<String> aList = (ArrayList<String>) query.get(s);
-			for(String x : aList) {
-				sb.append(DATABASE_TABLE_MAPPING.get(x));
+		for(String key : aSet) {
+			ArrayList<String> aList = (ArrayList<String>) query.get(key);
+			for(String selectedColumn : aList) {
+				sb.append(DATABASE_TABLE_MAPPING.get(selectedColumn));
 				sb.append(", ");
 			}
 		}
