@@ -1,11 +1,15 @@
 package fivium.openeyes.servlets;
 
+import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 import static fivium.openeyes.utils.Constants.QUERY_MAP;
 import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,15 +97,20 @@ public class QueryServlet extends HttpServlet {
 
 	private String findSelectedColumns(Map<String, List<String>> query) {
 		StringBuilder sb = new StringBuilder();
-		Set<String> aSet = query.keySet();
+
+		List<String> aSet = new ArrayList<>(query.keySet());
+		Collections.sort(aSet, Collections.reverseOrder());
+		int i=1;
 		for(String key : aSet) {
 			ArrayList<String> aList = (ArrayList<String>) query.get(key);
 			for(String selectedColumn : aList) {
 				sb.append(DATABASE_TABLE_MAPPING.get(selectedColumn));
+
+				sb.append(" \""+selectedColumn+"("+i+")\"");
 				sb.append(", ");
 			}
+			i++;
 		}
-		
 		return sb.toString().substring(0, sb.toString().length()-2);
 	}
 
