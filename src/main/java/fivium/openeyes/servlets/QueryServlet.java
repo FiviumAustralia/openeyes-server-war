@@ -61,6 +61,10 @@ public class QueryServlet extends HttpServlet {
 			query = new Gson().fromJson(queryAction, Map.class);
 			String selectedColumns = findSelectedColumns(query);
 			String queryToExecute = createSQLQuery(query, selectedColumns);
+			if("".equalsIgnoreCase(queryToExecute)){
+				Utils.set400Reponse(response, "Query is not implemented.");
+				return;
+			}
 			
 			List<Object> queryList = (List<Object>) jsonRequestObject.get("queryParams");			
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
@@ -90,8 +94,12 @@ public class QueryServlet extends HttpServlet {
 		for(String key : aSet) {
 				sb.append(key);
 		}
-		String queryToExecute = QUERY_MAP.get(sb.toString());
-		return queryToExecute.replace("?", selectedColumns);
+		try {
+			String queryToExecute = QUERY_MAP.get(sb.toString());
+			return queryToExecute.replace("?", selectedColumns);
+		} catch (Exception e) {
+			return "";
+		}
 	}
 
 
@@ -105,7 +113,6 @@ public class QueryServlet extends HttpServlet {
 			ArrayList<String> aList = (ArrayList<String>) query.get(key);
 			for(String selectedColumn : aList) {
 				sb.append(DATABASE_TABLE_MAPPING.get(selectedColumn));
-
 				sb.append(" \""+selectedColumn+"("+i+")\"");
 				sb.append(", ");
 			}
