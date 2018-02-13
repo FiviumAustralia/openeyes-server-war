@@ -2,11 +2,14 @@ package fivium.openeyes.servlets;
 
 import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 import static fivium.openeyes.utils.Constants.QUERY_MAP;
+import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,8 @@ public class QueryServlet extends HttpServlet {
 	 */
 	protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Object queryResult = null;
+		
 		try {
 		
 			// validate request
@@ -61,22 +66,21 @@ public class QueryServlet extends HttpServlet {
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
 			String queryType = (String) jsonRequestObject.get("queryType");
 			
-			Object queryResult = null;
 			
 			if (queryType.equals("Fetch")) {
 				queryResult = DAO.executeFetchStatement(queryToExecute, queryParams);
 			} else {
 				queryResult = DAO.executeMutateStatement(QUERY_MAP.get(queryAction), queryParams);
-			}	
-			
-			String jsonResult = new Gson().toJson(queryResult);
-			response.getWriter().write(jsonResult);
+			}			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Unexpeted error: ", e);
+			queryResult = Utils.createJsonErrorResult("Server failed to retrieve data");
 		}
 		
+		String jsonResult = new Gson().toJson(queryResult);
+		response.getWriter().write(jsonResult);
 	}
 	
 
@@ -93,6 +97,7 @@ public class QueryServlet extends HttpServlet {
 
 	private String findSelectedColumns(Map<String, List<String>> query) {
 		StringBuilder sb = new StringBuilder();
+
 		List<String> aSet = new ArrayList<>(query.keySet());
 		Collections.sort(aSet, Collections.reverseOrder());
 		int i=1;
@@ -100,6 +105,7 @@ public class QueryServlet extends HttpServlet {
 			ArrayList<String> aList = (ArrayList<String>) query.get(key);
 			for(String selectedColumn : aList) {
 				sb.append(DATABASE_TABLE_MAPPING.get(selectedColumn));
+
 				sb.append(" \""+selectedColumn+"("+i+")\"");
 				sb.append(", ");
 			}
