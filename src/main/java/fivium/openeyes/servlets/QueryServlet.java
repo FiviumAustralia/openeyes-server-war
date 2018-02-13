@@ -1,11 +1,16 @@
 package fivium.openeyes.servlets;
 
+import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 import static fivium.openeyes.utils.Constants.QUERY_MAP;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +52,11 @@ public class QueryServlet extends HttpServlet {
 			}
 			
 			String queryAction = (String) jsonRequestObject.get("queryAction");
+			Map<String, List<String>> query = new HashMap<String, List<String>>();
+			query = new Gson().fromJson(queryAction, Map.class);
+			String selectedColumns = findSelectedColumns(query);
+			String queryToExecute = createSQLQuery(query, selectedColumns);
+			
 			List<Object> queryList = (List<Object>) jsonRequestObject.get("queryParams");			
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
 			String queryType = (String) jsonRequestObject.get("queryType");
@@ -54,7 +64,7 @@ public class QueryServlet extends HttpServlet {
 			Object queryResult = null;
 			
 			if (queryType.equals("Fetch")) {
-				queryResult = DAO.executeFetchStatement(QUERY_MAP.get(queryAction), queryParams);
+				queryResult = DAO.executeFetchStatement(queryToExecute, queryParams);
 			} else {
 				queryResult = DAO.executeMutateStatement(QUERY_MAP.get(queryAction), queryParams);
 			}	
@@ -69,6 +79,36 @@ public class QueryServlet extends HttpServlet {
 		
 	}
 	
+
+	private String createSQLQuery(Map<String, List<String>> query, String selectedColumns) {
+		Set<String> aSet = query.keySet();
+		StringBuilder sb = new StringBuilder();
+		for(String key : aSet) {
+				sb.append(key);
+		}
+		String queryToExecute = QUERY_MAP.get(sb.toString());
+		return queryToExecute.replace("?", selectedColumns);
+	}
+
+
+	private String findSelectedColumns(Map<String, List<String>> query) {
+		StringBuilder sb = new StringBuilder();
+		List<String> aSet = new ArrayList<>(query.keySet());
+		Collections.sort(aSet, Collections.reverseOrder());
+		int i=1;
+		for(String key : aSet) {
+			ArrayList<String> aList = (ArrayList<String>) query.get(key);
+			for(String selectedColumn : aList) {
+				sb.append(DATABASE_TABLE_MAPPING.get(selectedColumn));
+				sb.append(" \""+selectedColumn+"("+i+")\"");
+				sb.append(", ");
+			}
+			i++;
+		}
+		return sb.toString().substring(0, sb.toString().length()-2);
+	}
+
+
 	private boolean isValidRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		// if request isn't a POST the return a 400 error
@@ -91,10 +131,10 @@ public class QueryServlet extends HttpServlet {
 		} 
 		
 		// if given queryAction doesn't exist then return 400 error
-		if (!QUERY_MAP.containsKey(jsonRequestObject.get("queryAction"))) {
-			Utils.set400Reponse(response, "Invalid Request, queryAction '" + jsonRequestObject.get("queryAction") + "' is not implemented.");
-			return false;
-		}
+//		if (!QUERY_MAP.containsKey(jsonRequestObject.get("queryAction"))) {
+//			Utils.set400Reponse(response, "Invalid Request, queryAction '" + jsonRequestObject.get("queryAction") + "' is not implemented.");
+//			return false;
+//		}
 		
 		return true;
 		

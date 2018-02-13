@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -64,7 +65,7 @@ public class DAO {
 		while (resultSet.next()) {
 			HashMap<String, String> row = new HashMap<String, String>(columns);
 			for (int i = 1; i <= columns; ++i) {
-				row.put(md.getColumnName(i), String.valueOf(resultSet.getObject(i)));
+				row.put(md.getColumnLabel(i), String.valueOf(resultSet.getObject(i)));
 			}
 			returnData.add(row);
 		}
