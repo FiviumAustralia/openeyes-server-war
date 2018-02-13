@@ -34,4 +34,15 @@ public class Utils {
 		jsonRequestObject = gson.fromJson(json, Map.class);
 		return jsonRequestObject;
 	}
+	
+	public static String createJsonErrorResult(String errorMsg) {
+		
+		Map<String, String> errorResultMap = new HashMap<String, String>();
+		errorResultMap.put("error", errorMsg);
+		
+		return new Gson().toJson(errorResultMap);
+		
+	}
+	
 }
+

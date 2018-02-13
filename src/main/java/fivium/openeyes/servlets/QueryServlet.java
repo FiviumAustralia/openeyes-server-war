@@ -43,6 +43,8 @@ public class QueryServlet extends HttpServlet {
 	 */
 	protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		Object queryResult = null;
+		
 		try {
 		
 			// validate request
@@ -60,22 +62,21 @@ public class QueryServlet extends HttpServlet {
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
 			String queryType = (String) jsonRequestObject.get("queryType");
 			
-			Object queryResult = null;
 			
 			if (queryType.equals("Fetch")) {
 				queryResult = DAO.executeFetchStatement(queryToExecute, queryParams);
 			} else {
 				queryResult = DAO.executeMutateStatement(QUERY_MAP.get(queryAction), queryParams);
-			}	
-			
-			String jsonResult = new Gson().toJson(queryResult);
-			response.getWriter().write(jsonResult);
+			}			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("Unexpeted error: ", e);
+			queryResult = Utils.createJsonErrorResult("Server failed to retrieve data");
 		}
 		
+		String jsonResult = new Gson().toJson(queryResult);
+		response.getWriter().write(jsonResult);
 	}
 	
 
