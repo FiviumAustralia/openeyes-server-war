@@ -72,6 +72,13 @@ public final class Constants {
 		DATABASE_TABLE_MAPPING.put("Inject Batch Expiry", "ex_inj_batch_expiry_date");
 		DATABASE_TABLE_MAPPING.put("Injection Medication", "med_inj_name");
 		DATABASE_TABLE_MAPPING.put("Eye Right/Left", "eye_name");
+
+		DATABASE_TABLE_MAPPING.put("Injection Eye Code Aggregate", "ex_inj_eye_code");
+		DATABASE_TABLE_MAPPING.put("Injection Eye Code Aggregate", "ex_inj_id");
+		DATABASE_TABLE_MAPPING.put("Injection Drug Id Aggregate", "ex_inj_drug_id");
+		DATABASE_TABLE_MAPPING.put("Patient Id Aggregate", "ep_patient_id");
+		DATABASE_TABLE_MAPPING.put("Maximum Injection Number", "maximum_injection_number");
+		DATABASE_TABLE_MAPPING.put("Total Openeyes Injection Notes", "total_openeyes_injection_notes");
 		
 		return DATABASE_TABLE_MAPPING;
 	}
