@@ -26,6 +26,24 @@ public final class Constants {
 		QUERY_MAP.put("MedicationsInjections", GET_ALL_INJECTIONS_MEDICATION_QUERY);
 		QUERY_MAP.put("InjectionsMedicinesEyes", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
 		
+		// Agg queries
+		QUERY_MAP.put("AggInjectionsEye", GET_AGG_INJECTIONS_EYE_QUERY);
+		QUERY_MAP.put("AggInjectionsInj", GET_AGG_INJECTIONS_INJ_QUERY);
+		QUERY_MAP.put("AggInjectionsInjEye", GET_AGG_INJECTIONS_INJ_EYE_QUERY);
+		QUERY_MAP.put("AggInjectionsMed", GET_AGG_INJECTIONS_MED);
+		QUERY_MAP.put("AggInjectionsMedEye", GET_AGG_INJECTIONS_MED_EYE);
+		QUERY_MAP.put("AggInjectionsMedInj", GET_AGG_INJECTIONS_MED_INJ);
+		QUERY_MAP.put("AggInjectionsMedInjEye", GET_AGG_INJECTIONS_MED_INJ_EYE);
+		QUERY_MAP.put("AggInjectionsNone", GET_AGG_INJECTIONS_NONE);
+		QUERY_MAP.put("AggInjectionsPat", GET_AGG_INJECTIONS_PAT);
+		QUERY_MAP.put("AggInjectionsPatEye", GET_AGG_INJECTIONS_PAT_EYE);
+		QUERY_MAP.put("AggInjectionsPatInj", GET_AGG_INJECTIONS_PAT_INJ);
+		QUERY_MAP.put("AggInjectionsPatInjEye", GET_AGG_INJECTIONS_PAT_INJ_EYE);
+		QUERY_MAP.put("AggInjectionsPatMed", GET_AGG_INJECTIONS_PAT_MED);
+		QUERY_MAP.put("AggInjectionsPatMedEye", GET_AGG_INJECTIONS_PAT_MED_EYE);
+		QUERY_MAP.put("AggInjectionsPatMedInj", GET_AGG_INJECTIONS_PAT_MED_INJ);
+		QUERY_MAP.put("AggInjectionsPatMedInjEye", GET_AGG_INJECTIONS_PAT_MED_INJ_EYE);
+		
 		
 		return QUERY_MAP;
 	}
@@ -54,6 +72,13 @@ public final class Constants {
 		DATABASE_TABLE_MAPPING.put("Inject Batch Expiry", "ex_inj_batch_expiry_date");
 		DATABASE_TABLE_MAPPING.put("Injection Medication", "med_inj_name");
 		DATABASE_TABLE_MAPPING.put("Eye Right/Left", "eye_name");
+
+		DATABASE_TABLE_MAPPING.put("Injection Eye Code Aggregate", "ex_inj_eye_code");
+		DATABASE_TABLE_MAPPING.put("Injection Eye Code Aggregate", "ex_inj_id");
+		DATABASE_TABLE_MAPPING.put("Injection Drug Id Aggregate", "ex_inj_drug_id");
+		DATABASE_TABLE_MAPPING.put("Patient Id Aggregate", "ep_patient_id");
+		DATABASE_TABLE_MAPPING.put("Maximum Injection Number", "maximum_injection_number");
+		DATABASE_TABLE_MAPPING.put("Total Openeyes Injection Notes", "total_openeyes_injection_notes");
 		
 		return DATABASE_TABLE_MAPPING;
 	}
@@ -76,5 +101,38 @@ public final class Constants {
 	private static final String GET_ALL_MEDICATION = "SELECT ? FROM _r_u23s4545r200b365x2_3_full_medications";
 	
 	private static final String GET_ALL_EYES ="SELECT ? FROM _r_u23s4545r200b365x2_4_full_eyes";
+	
+	// AGG select queries
+	private static final String GET_AGG_INJECTIONS_EYE_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_eye";
+
+	private static final String GET_AGG_INJECTIONS_INJ_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_inj";
+
+	private static final String GET_AGG_INJECTIONS_INJ_EYE_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_inj_eye";
+
+	private static final String GET_AGG_INJECTIONS_MED = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_med";
+
+	private static final String GET_AGG_INJECTIONS_MED_EYE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_med_eye";
+
+	private static final String GET_AGG_INJECTIONS_MED_INJ = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_med_inj";
+
+	private static final String GET_AGG_INJECTIONS_MED_INJ_EYE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_med_inj_eye";
+
+	private static final String GET_AGG_INJECTIONS_NONE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_none";
+
+	private static final String GET_AGG_INJECTIONS_PAT = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat";
+
+	private static final String GET_AGG_INJECTIONS_PAT_EYE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_eye";
+
+	private static final String GET_AGG_INJECTIONS_PAT_INJ = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_inj";
+
+	private static final String GET_AGG_INJECTIONS_PAT_INJ_EYE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_inj_eye";
+
+	private static final String GET_AGG_INJECTIONS_PAT_MED = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_med";
+
+	private static final String GET_AGG_INJECTIONS_PAT_MED_EYE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_med_eye";
+
+	private static final String GET_AGG_INJECTIONS_PAT_MED_INJ = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_med_inj";
+
+	private static final String GET_AGG_INJECTIONS_PAT_MED_INJ_EYE = "SELECT ? FROM _r_u23s4545r200b365x2_1_agg_injections_pat_med_inj_eye";
 
 }
