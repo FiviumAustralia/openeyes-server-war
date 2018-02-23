@@ -20,11 +20,63 @@ public final class Constants {
 		QUERY_MAP.put("Injections", GET_ALL_INJECTIONS_QUERY);
 		QUERY_MAP.put("Medications", GET_ALL_MEDICATION);
 		QUERY_MAP.put("Eyes", GET_ALL_EYES);
+		
 		QUERY_MAP.put("PatientsInjections", GET_ALL_PATIENT_INJECTIONS_QUERY);
 		QUERY_MAP.put("InjectionsPatients", GET_ALL_PATIENT_INJECTIONS_QUERY);
+		
 		QUERY_MAP.put("InjectionsMedications", GET_ALL_INJECTIONS_MEDICATION_QUERY);
 		QUERY_MAP.put("MedicationsInjections", GET_ALL_INJECTIONS_MEDICATION_QUERY);
-		QUERY_MAP.put("InjectionsMedicinesEyes", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		
+		// all except patients
+		QUERY_MAP.put("InjectionsMedicationsEyes", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		QUERY_MAP.put("InjectionsEyesMedications", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		QUERY_MAP.put("EyesMedicationsInjections", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		QUERY_MAP.put("EyesInjectionsMedications", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		QUERY_MAP.put("MedicationsEyesInjections", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		QUERY_MAP.put("MedicationsInjectionsEyes", GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY);
+		
+		// all except eyes
+		QUERY_MAP.put("InjectionsMedicationsPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY);
+		QUERY_MAP.put("InjectionsPatientsMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY);
+		QUERY_MAP.put("PatientsMedicationsInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY);
+		QUERY_MAP.put("PatientsInjectionsMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY);
+		QUERY_MAP.put("MedicationsPatientsInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY);
+		QUERY_MAP.put("MedicationsInjectionsPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY);
+		
+		// all except medications
+		QUERY_MAP.put("InjectionsEyesPatients", GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY);
+		QUERY_MAP.put("InjectionsPatientsEyes", GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY);
+		QUERY_MAP.put("PatientsEyesInjections", GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY);
+		QUERY_MAP.put("PatientsInjectionsEyes", GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY);
+		QUERY_MAP.put("EyesPatientsInjections", GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY);
+		QUERY_MAP.put("EyesInjectionsPatients", GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY);
+		
+		// ALL
+		QUERY_MAP.put("InjectionsMedicationsPatientsEyes", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("InjectionsMedicationsEyesPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("InjectionsPatientsMedicationsEyes", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("InjectionsPatientsEyesMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("InjectionsEyesPatientsMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("InjectionsEyesMedicationsPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("MedicationsInjectionsPatientsEyes", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("MedicationsInjectionsEyesPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("MedicationsEyesInjectionsPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("MedicationsEyesPatientsInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("MedicationsPatientsEyesInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("MedicationsPatientsInjectionsEyes", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("PatientsMedicationsInjectionsEyes", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("PatientsMedicationsEyesInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("PatientsEyesMedicationsInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("PatientsEyesInjectionsMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("PatientsInjectionsEyesMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("PatientsInjectionsMedicationsEyes", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("EyesPatientsInjectionsMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("EyesPatientsMedicationsInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("EyesMedicationsPatientsInjections", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("EyesMedicationsInjectionsPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("EyesInjectionsMedicationsPatients", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+		QUERY_MAP.put("EyesInjectionsPatientsMedications", GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY);
+
 		
 		// Agg queries
 		QUERY_MAP.put("AggInjectionsEye", GET_AGG_INJECTIONS_EYE_QUERY);
@@ -94,9 +146,24 @@ public final class Constants {
 	private static final String GET_ALL_INJECTIONS_MEDICATION_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections A "
 			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_3_full_medications B " + "ON A.ex_inj_drug_id = B.med_inj_id";
 
+	
 	private static final String GET_ALL_INJECTIONS_MEDICATION_EYES_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections A "
 			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_3_full_medications B ON A.ex_inj_drug_id = B.med_inj_id "
 			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_4_full_eyes C " + "ON A.ex_inj_eye_id = C.eye_id";
+	
+	private static final String GET_ALL_INJECTIONS_MEDICATION_PATIENTS_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections A "
+			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_3_full_medications B ON A.ex_inj_drug_id = B.med_inj_id "
+			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_2_full_patients C " + "ON A.ep_patient_id = C.pat_id";
+	
+	private static final String GET_ALL_INJECTIONS_EYES_PATIENTS_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections A "
+			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_4_full_eyes B ON A.ex_inj_eye_id = B.eye_id "
+			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_2_full_patients C " + "ON A.ep_patient_id = C.pat_id";
+	
+	
+	private static final String GET_ALL_INJECTIONS_MEDICATION_PATIENTS_EYES_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections A "
+			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_3_full_medications B ON A.ex_inj_drug_id = B.med_inj_id "
+			+ "LEFT OUTER JOIN _r_u23s4545r200b365x2_2_full_patients C " + "ON A.ep_patient_id = C.pat_id "
+	        + "LEFT OUTER JOIN _r_u23s4545r200b365x2_4_full_eyes D " + "ON A.ex_inj_eye_id = D.eye_id";
 	
 	private static final String GET_ALL_MEDICATION = "SELECT ? FROM _r_u23s4545r200b365x2_3_full_medications";
 	
