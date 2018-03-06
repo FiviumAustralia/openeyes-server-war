@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -63,7 +64,7 @@ public class DAO {
 		ResultSetMetaData md = resultSet.getMetaData();
 		int columns = md.getColumnCount();
 		while (resultSet.next()) {
-			HashMap<String, String> row = new HashMap<String, String>(columns);
+			LinkedHashMap<String, String> row = new LinkedHashMap<String, String>(columns);
 			for (int i = 1; i <= columns; ++i) {
 				row.put(md.getColumnLabel(i), String.valueOf(resultSet.getObject(i)));
 			}
