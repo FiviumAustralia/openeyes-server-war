@@ -61,7 +61,7 @@ public class QueryServlet extends HttpServlet {
 			query = new Gson().fromJson(queryAction, Map.class);
 			String selectedColumns = findSelectedColumns(query);
 			String queryToExecute = createSQLQuery(query, selectedColumns);
-			if("".equalsIgnoreCase(queryToExecute)){
+			if(null == queryToExecute || "".equalsIgnoreCase(queryToExecute)){
 				Utils.set400Reponse(response, "Query is not implemented.");
 				return;
 			}
