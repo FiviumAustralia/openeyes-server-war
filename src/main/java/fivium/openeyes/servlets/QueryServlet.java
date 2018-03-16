@@ -2,7 +2,7 @@ package fivium.openeyes.servlets;
 
 import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
 import static fivium.openeyes.utils.Constants.QUERY_MAP;
-import static fivium.openeyes.utils.Constants.DATABASE_TABLE_MAPPING;
+import static fivium.openeyes.utils.Constants.DATABASE_TABLENAME_MAPPING;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,14 +67,27 @@ public class QueryServlet extends HttpServlet {
 				return;
 			}
 			
-			List<Object> queryList = (List<Object>) jsonRequestObject.get("queryParams");			
+			List<Object> queryList = (List<Object>) jsonRequestObject.get("queryParams");
 			Object[] queryParams = queryList.toArray(new Object[queryList.size()]);
 			String queryType = (String) jsonRequestObject.get("queryType");
-			
-			
+			if(queryParams.length == 2) {
+				//Mapping table names
+				queryParams[0] = queryParams[0].toString().replaceAll(queryParams[1].toString(), DATABASE_TABLENAME_MAPPING.get(queryParams[1].toString()));
+				// Mapping column names
+				Set<String> tablenames = DATABASE_TABLE_MAPPING.keySet();
+				Iterator<String> setIterator = tablenames.iterator();
+				while(setIterator.hasNext()){
+					String tempColumnName = setIterator.next();
+		            queryParams[0] = queryParams[0].toString().replaceAll(tempColumnName, DATABASE_TABLE_MAPPING.get(tempColumnName));
+		            // Removing the '?' metacharacter.
+		            queryParams[0] = queryParams[0].toString().replaceAll("\\?", "");
+		        }
+				queryToExecute += " WHERE " + queryParams[0];
+			}
+//			Write code to replace table names with actual table names from WHERE onwards
 			if (queryType.equals("Fetch")) {
 				queryResult = DAO.executeFetchStatement(queryToExecute, queryParams);
-			} else {
+				} else {
 				queryResult = DAO.executeMutateStatement(QUERY_MAP.get(queryAction), queryParams);
 			}			
 			
