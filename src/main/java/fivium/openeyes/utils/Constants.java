@@ -7,6 +7,8 @@ public final class Constants {
 
 	public static Map<String, String> QUERY_MAP = initQueryMap();
 	
+	public static Map<String, String> DATABASE_TABLENAME_MAPPING = initTableNameMap();
+	
 	public static Map<String, String> DATABASE_TABLE_MAPPING = initDatabaseMap();
 
 	private static Map<String, String> initQueryMap() {
@@ -14,6 +16,8 @@ public final class Constants {
 		if (QUERY_MAP != null) {
 			return QUERY_MAP;
 		}
+		
+		
 
 		QUERY_MAP = new HashMap<String, String>();
 		QUERY_MAP.put("Patients", GET_ALL_PATIENTS_QUERY);
@@ -101,6 +105,22 @@ public final class Constants {
 	}
 
 	
+	private static Map<String, String> initTableNameMap() {
+		
+		if (DATABASE_TABLENAME_MAPPING != null) {
+			return DATABASE_TABLENAME_MAPPING;
+		}
+		
+		DATABASE_TABLENAME_MAPPING = new HashMap<String, String>();
+		DATABASE_TABLENAME_MAPPING.put("Patients", "_r_u23s4545r200b365x2_2_full_patients");
+		DATABASE_TABLENAME_MAPPING.put("Medications", "_r_u23s4545r200b365x2_3_full_medications");
+		DATABASE_TABLENAME_MAPPING.put("Injections", "_r_u23s4545r200b365x2_1_full_injections");
+		DATABASE_TABLENAME_MAPPING.put("Eyes", "_r_u23s4545r200b365x2_4_full_eyes");
+		
+		return DATABASE_TABLENAME_MAPPING;
+	}
+
+
 	private static Map<String, String> initDatabaseMap() {
 
 		if (DATABASE_TABLE_MAPPING != null) {
@@ -135,8 +155,6 @@ public final class Constants {
 		return DATABASE_TABLE_MAPPING;
 	}
 
-	
-	
 	private static final String GET_ALL_PATIENTS_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_2_full_patients";
 
 	private static final String GET_ALL_INJECTIONS_QUERY = "SELECT ? FROM _r_u23s4545r200b365x2_1_full_injections";
